@@ -1,2 +1,6 @@
+<<<<<<< HEAD
+test
+=======
 aaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+>>>>>>> fa3ecf58f5c18674f839de26d8b30d4c6dd2992c
