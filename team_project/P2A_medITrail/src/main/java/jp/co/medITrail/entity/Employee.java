@@ -19,17 +19,14 @@ public class Employee {
     @Column(name = "emp_name")
     private String empName;
 
-    @Column(name = "emp_kana")
-    private String empKana;
-
-    @Column(name = "emp_type")
-    private Integer empType;
-
-    @Column(name = "login_id")
-    private String loginId;
+    @Column(name = "job_type")
+    private String jobType;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "delete_flag")
+    private Integer deleteFlag;
 
     public Integer getEmpId() {
         return empId;
@@ -55,28 +52,12 @@ public class Employee {
         this.empName = empName;
     }
 
-    public String getEmpKana() {
-        return empKana;
+    public String getJobType() {
+        return jobType;
     }
 
-    public void setEmpKana(String empKana) {
-        this.empKana = empKana;
-    }
-
-    public Integer getEmpType() {
-        return empType;
-    }
-
-    public void setEmpType(Integer empType) {
-        this.empType = empType;
-    }
-
-    public String getLoginId() {
-        return loginId;
-    }
-
-    public void setLoginId(String loginId) {
-        this.loginId = loginId;
+    public void setJobType(String jobType) {
+        this.jobType = jobType;
     }
 
     public String getPassword() {
@@ -85,6 +66,14 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Integer deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
 }
