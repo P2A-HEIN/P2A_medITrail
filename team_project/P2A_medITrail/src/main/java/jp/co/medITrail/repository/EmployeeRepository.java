@@ -12,5 +12,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	
 	@Query(value="SELECT EMPLOYEE_SEQ.NEXTVAL FROM DUAL",nativeQuery=true)
 	Integer getNextEmployee();
+	
+	Employee findByEmpIdAndHosIdAndDeleteFlag(Integer empId, Integer hosId, Integer deleteFlag);
 
 }
