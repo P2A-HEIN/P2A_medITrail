@@ -1,10 +1,99 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>	
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0">
+	<title> ダッシュボード | medITrail</title>
 </head>
 <body>
-
+	<!--
+	表示確認用のHTMLです
+    利用者情報、件数、一覧のデータと遷移先は、
+    Controllerとの連携時に調整します
+    -->
+    
+    <header>
+		<p>電子カルテ支援システム medITrail</p>
+		
+		<nav aria-label="共通メニュー">
+			<ul>
+				<li>
+					<a href="empTop.html" aria-current="page">
+						ダッシュボード
+					</a>
+				</li>
+				<li>
+					<a href="operationGuide.html">操作ガイド</a>
+				</li>
+				<li>
+					<a href="../login.html" th:href="@{/logout}">
+						ログアウト
+					</a>
+				</li>
+			</ul>
+		</nav>
+    </header>
+    
+    <main>
+		<h1> ダッシュボード</h1>
+		
+		<section aria-labelledby="summary-title">
+			<h2 id="summary-title">業務の状況</h2>
+			<!-- 件数はデータ連携時に表示します。 -->
+			<dl>
+				<dt>登録患者数</dt>
+				<dd>-</dd>
+				
+				<dt> カルテ記録件数</dt>
+				<dd>—</dd>
+				
+				<dt>確認待ちの問診票</dt>
+				<dd>—</dd>
+			</dl>
+		</section>
+		
+		<section aria-labelledby="questionnaire-title">
+			<h2 id="questionnaire-title">提出された問診票</h2>
+			
+			<!--以下は表示確認用のサンプルデータです -->
+			<ul>
+				<li>
+					<p>サンプル患者</p>
+					<p>問診内容の見本</p>
+					<a href="questionnaireView.html">確認する</a>
+				</li>
+			</ul>
+		</section>
+		
+		<section aria-labelledby="records-title">
+			<h2 id="records-title">最近のカルテ</h2>
+			
+			 <!-- 以下は表示確認用のサンプルデータです。 -->
+			 <ul>
+				 <li>
+					 <p>サンプル患者</p>
+					 <p>カルテ内容の見本</p>
+					 <a href="patientDetail.html">患者詳細を開く</a>
+				 </li>
+			 </ul>
+		</section>
+		
+		<section aria-labelledby="actions-title">
+			<h2 id="actions-title">業務メニュー</h2>
+			
+			<ul>
+				<li>
+					<a href="patientRegist.html">新規患者登録</a>
+				</li>
+				<li>
+					<a href="../patient/questionnaireInput.html">
+						問診票入力
+					</a>
+				</li>
+			</ul>
+		</section>
+    </main>
 </body>
 </html>
+		

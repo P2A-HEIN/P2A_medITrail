@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>勤務者登録確認 | medITrail</title>
 </head>
 <body>
-
+	<header>
+		<p>電子カルテ支援システム medITrail</p>
+	</header>
+	
+	<main>
+		<h1>勤務者登録確認</h1>
+		<p>入力内容を確認し、登録ボタンを押してください。</p>
+		
+		<form action="/medITrail/admin/empRegistCompletion"
+              th:action="@{/admin/empRegistCompletion}"
+              th:object="${employeeInformationRegistrationForm}"
+              method="post">
+              
+              <dl>
+				  <dt>勤務者名</dt>
+				  <dd th:text="*{empName}"></dd>
+				  
+				  <dt>職種</dt>
+				  <dd th:text="*{jobType}"></dd>
+				  
+				  <dt>パスワード</dt>
+				  <dd>非表示</dd>
+              </dl>
+              
+              <input type="hidden" th:field="*{empName}">
+              <input type="hidden" th:field="*{jobType}">
+              <input type="hidden" th:field="*{password}">
+              
+              <div>
+				  <button type ="submit"
+				  		  formaction="/medITrail/admin/empRegist/back"
+				  		  th:formaction= "@{/admin/empRegist/back}">
+				  	戻る
+				  </button>
+				  
+				  <button type="submit">登録</button>
+              </div>
+		</form>
+	</main>
 </body>
 </html>

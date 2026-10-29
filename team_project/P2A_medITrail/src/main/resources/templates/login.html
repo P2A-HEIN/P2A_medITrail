@@ -2,7 +2,8 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name ="viewport"
+		content="width=device-width, initial-scale=1.0">
 	<title>ログイン | medITrail</title>
 </head>
 <body>
@@ -11,44 +12,42 @@
 	</header>
 	
 	<main>
-		<h1>ログイン</h1>
+		<h1> ログイン</h1>
 		
-        <form action="/medITrail/login"
-					th:action="@{/login}"
-					method="post">
-					
-				<div>
-					<label for="hosId">病院ID</label>
-					<input
-						type="text"
-						id="hosId"
-						name="hosId"
-						required>
-				</div>
-				
-				<div>
-					<label for="userId">ユーザーID</label>
-					<input
-						type="text"
-						id="userId"
-						name="userId"
-						autocomplete="username"
-						required>
-				</div>
-				
-				
-				<div>
-					<label for="password">パスワード</label>
-					<input
-						type="password"
-						id="password"
-						name="password"
-						autocomplete="current-password"
-						required>
-				</div>
-				
-				<button type="submit">ログイン</button>
-        </form>
+		<form action="/medITrail/login"
+		      th:action="@{/login}"
+		      method="post">
+		
+		<div>
+			<label for="hosId">病院ID</label>
+			<input type="text"
+				id="hosId"
+				name="hosId"
+				inputmode="numeric"
+				required>
+		</div>
+		
+		<div>
+			<label for="userId">ユーザーID</label>
+			<input type="text"
+				id="userId"
+				name="userId"
+				inputmode="numeric"
+				autocomplete="username"
+				required>
+		</div>
+		
+		<div>
+			<label for="password">パスワード</label>
+			<input type="password"
+				id="password"
+				name="password"
+				autocomplete="current-password"
+				required>
+		</div>
+		
+		<button type="submit">ログイン</button>
+		</form>
 	</main>
 </body>
 </html>
