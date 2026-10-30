@@ -35,6 +35,7 @@ public class LoginController {
 		
 		if(employee!=null) {
 			session.setAttribute("hosId", hosId);
+		    session.setAttribute("empId", employee.getEmpId());
 			return"employee/empTop";
 		}
 		
