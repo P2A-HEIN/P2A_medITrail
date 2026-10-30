@@ -21,10 +21,20 @@
               
               <dl>
 				  <dt>勤務者名</dt>
-				  <dd th:text="*{empName}"></dd>
+				  <dd th:text="*{empName}">サンプル勤務者</dd>
+
+                  <!-- 追加項目の表示値はController連携時に設定します。 -->
+                  <dt>ふりがな</dt>
+                  <dd>—</dd>
 				  
 				  <dt>職種</dt>
-				  <dd th:text="*{jobType}"></dd>
+				  <dd th:text="*{jobType}">医師</dd>
+
+                  <dt>所属</dt>
+                  <dd>—</dd>
+
+                  <dt>ログインID</dt>
+                  <dd>—</dd>
 				  
 				  <dt>パスワード</dt>
 				  <dd>非表示</dd>
@@ -35,13 +45,11 @@
               <input type="hidden" th:field="*{password}">
               
               <div>
-				  <button type ="submit"
-				  		  formaction="/medITrail/admin/empRegist/back"
-				  		  th:formaction= "@{/admin/empRegist/back}">
-				  	戻る
-				  </button>
+                  <a href="empRegist.html"
+                     th:href="@{/admin/empRegist}">戻る</a>
 				  
-				  <button type="submit">登録</button>
+				  <!-- 登録処理は行わず、完了画面の表示を確認します。 -->
+                  <a href="empRegistCompletion.html">登録</a>
               </div>
 		</form>
 	</main>

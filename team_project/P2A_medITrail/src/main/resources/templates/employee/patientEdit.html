@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>患者情報を編集 | medITrail</title>
 </head>
 <body>
+    <!-- 表示確認用。患者情報と記録はサンプルで、保存・削除は行いません。 -->
+    <header>
+        <p>電子カルテ支援システム medITrail</p>
+        <nav aria-label="共通メニュー">
+            <ul>
+                <li><a href="empTop.html">ダッシュボード</a></li>
+                <li><a href="petientList.html">患者管理</a></li>
+                <li><a href="operationGuide.html">操作ガイド</a></li>
+            </ul>
+        </nav>
+        <form action="/medITrail/logout" th:action="@{/logout}" method="post">
+            <button type="submit">ログアウト</button>
+        </form>
+    </header>
 
+    <main>
+        <h1>患者情報を編集</h1>
+        <p>変更する患者情報を入力してください。</p>
+        <p>患者ID：00000001</p>
+
+        <form action="patientEditCheck.html" method="post">
+            <div>
+                <label for="patName">氏名（必須）</label>
+                <input type="text" id="patName" name="patName"
+                       value="サンプル患者" autocomplete="name" required>
+            </div>
+            <div>
+                <label for="patKana">ふりがな（任意）</label>
+                <input type="text" id="patKana" name="patKana"
+                       value="さんぷるかんじゃ">
+            </div>
+            <div>
+                <label for="birth">生年月日（必須）</label>
+                <input type="date" id="birth" name="birth"
+                       value="2000-01-01" autocomplete="bday" required>
+            </div>
+            <div>
+                <label for="gender">性別（必須）</label>
+                <select id="gender" name="gender" required>
+                    <option value="">選択してください</option>
+                    <option value="F" selected>女性</option>
+                    <option value="M">男性</option>
+                    <option value="O">その他</option>
+                </select>
+            </div>
+            <div>
+                <label for="phone">電話番号（必須）</label>
+                <input type="tel" id="phone" name="phone"
+                       value="000-0000-0000" autocomplete="tel" required>
+            </div>
+            <div>
+                <label for="doctor">担当医（任意）</label>
+                <select id="doctor" name="doctor">
+                    <option value="">未設定</option>
+                    <!-- 担当医の選択肢はデータ連携時に追加します。 -->
+                </select>
+            </div>
+
+            <!-- 以下は画面表示の確認用です。入力値の検証と受け渡しは後で実装します。 -->
+            <p>
+                <a href="patientEditCheck.html">確認する</a>
+                <a href="patientDetail.html">キャンセル</a>
+            </p>
+        </form>
+    </main>
 </body>
 </html>

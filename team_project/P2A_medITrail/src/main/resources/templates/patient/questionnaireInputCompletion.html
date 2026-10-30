@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>問診票送信完了 | medITrail</title>
 </head>
 <body>
+	<header>
+		<p>電子カルテ支援システム medITrail</p>
+		<form action="/medITrail/logout" th:action="@{/logout}" method="post">
+			<button type="submit">ログアウト</button>
+		</form>
+	</header>
 
+	<main>
+		<!-- 送信完了時の表示見本です。入力内容の送信と保存はまだ行いません。 -->
+		<h1>送信しました</h1>
+		<p>問診票の内容はスタッフが確認します。診察までしばらくお待ちください。</p>
+		<p>
+			<a href="questionnaireInput.html">問診票入力画面へ戻る</a>
+		</p>
+	</main>
 </body>
 </html>

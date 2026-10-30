@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>患者詳細 | medITrail</title>
 </head>
 <body>
+    <!-- 表示確認用。患者情報と記録はサンプルで、保存・削除は行いません。 -->
+    <header>
+        <p>電子カルテ支援システム medITrail</p>
+        <nav aria-label="共通メニュー">
+            <ul>
+                <li><a href="empTop.html">ダッシュボード</a></li>
+                <li><a href="petientList.html">患者管理</a></li>
+                <li><a href="operationGuide.html">操作ガイド</a></li>
+            </ul>
+        </nav>
+        <form action="/medITrail/logout" th:action="@{/logout}" method="post">
+            <button type="submit">ログアウト</button>
+        </form>
+    </header>
 
+    <main>
+        <h1>患者詳細</h1>
+
+        <section aria-labelledby="patient-title">
+            <h2 id="patient-title">患者情報</h2>
+            <dl>
+                <dt>患者ID</dt>
+                <dd>00000001</dd>
+                <dt>氏名</dt>
+                <dd>サンプル患者</dd>
+                <dt>ふりがな</dt>
+                <dd>さんぷるかんじゃ</dd>
+                <dt>生年月日</dt>
+                <dd>2000-01-01</dd>
+                <dt>性別</dt>
+                <dd>女性</dd>
+                <dt>電話番号</dt>
+                <dd>000-0000-0000</dd>
+                <dt>担当医</dt>
+                <dd>未設定</dd>
+            </dl>
+            <p>
+                <a href="patientEdit.html">患者情報を編集する</a>
+                <a href="patientDeleteCheck.html">患者情報を削除する</a>
+            </p>
+        </section>
+
+        <section aria-labelledby="questionnaire-title">
+            <h2 id="questionnaire-title">問診票</h2>
+            <p>提出済み</p>
+            <p><a href="questionnaireView.html">問診票を閲覧する</a></p>
+        </section>
+
+        <section aria-labelledby="records-title">
+            <h2 id="records-title">カルテ一覧</h2>
+            <p><a href="medicalRecordRegist.html">カルテを作成する</a></p>
+            <!-- カルテの画面と処理は担当者が連携します。 -->
+            <table>
+                <caption>患者のカルテ記録</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">記録日</th>
+                        <th scope="col">担当勤務者</th>
+                        <th scope="col">内容</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026-10-30</td>
+                        <td>未設定</td>
+                        <td>カルテ内容の見本</td>
+                        <td>
+                            <a href="medicalRecordEdit.html">閲覧・編集</a>
+                            <a href="medicalRecordDeleteCheck.html">削除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <p><a href="petientList.html">患者一覧へ戻る</a></p>
+    </main>
 </body>
 </html>

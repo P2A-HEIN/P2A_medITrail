@@ -1,10 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	 <meta charset="UTF-8">
+	 <meta name="viewport"
+			content="width=device-width, initial-scale=1.0">
+	<title>新規患者登録 | medITrail</title>
 </head>
 <body>
+	<header>
+		 <p>電子カルテ支援システム medITrail</p>
+		 <nav aria-label="共通メニュー">
+			 <a href="empTop.html">ダッシュボード</a>
+ 			 <a href="petientList.html">患者管理</a>
+		 </nav>
+	</header>
 
+	<main>
+		<h1>新規患者登録</h1>
+		<p>患者情報を入力してください。</p>
+
+		<!-- 表示確認用。入力内容の受け渡しと保存は後から実装します。 -->
+		 <form action="patientRegistCheck.html" method="post">
+			<div>
+				<label for="patName">氏名（必須）</label>
+				<input type="text"
+					 	id="patName"
+						name="patName"
+						autocomplete="name"
+						required>
+			</div>
+
+			<div>
+				<label for="patKana">ふりがな（任意）</label>
+				<input type="text"
+						id="patKana"
+						name="patKana">
+			</div>
+
+			<div>
+				<label for="birth">生年月日（必須）</label>
+				<input type="date"
+						id="birth"
+						name="birth"
+						autocomplete="bday"
+						required>
+			</div>
+
+			<div>
+				<label for="gender">性別（必須）</label>
+				<select id="gender" name="gender" required>
+					<option value="">選択してください</option>
+					<option value="F">女性</option>
+					<option value="M">男性</option>
+					<option value="O">その他</option>
+				</select>
+			</div>
+
+			<div>
+				<label for="phone">電話番号（必須）</label>
+				<input type="tel"
+						id="phone"
+						name="phone"
+						autocomplete="tel"
+						required>
+			</div>
+
+			<div>
+				<label for="doctor">担当医（任意）</label>
+				<select id="doctor" name="doctor">
+					<option value="">未設定</option>
+				<!-- 担当医の選択肢はデータ連携時に追加します。 -->
+				</select>
+			</div>
+
+			<!-- 画面表示の確認用リンクです。入力チェックは送信処理と連携します。 -->
+			<p>
+				<a href="patientRegistCheck.html">確認する</a>
+				<a href="petientList.html">キャンセル</a>
+            </p>
+        </form>
+    </main>
 </body>
 </html>

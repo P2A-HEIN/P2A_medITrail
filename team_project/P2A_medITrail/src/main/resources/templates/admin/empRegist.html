@@ -28,6 +28,13 @@
 			</div>
 			
 			<div>
+				<label for="empKana">ふりがな（任意）</label>
+				<input type="text"
+						id="empKana"
+						name="empKana">
+			</div>
+
+			<div>
 				<label for="jobType">職種</label>
 				<select id="jobType" name="jobType" required>
 					<option value="">選択してください</option>
@@ -37,6 +44,23 @@
 				</select>
 			</div>
 			
+			<div>
+				<label for="department">所属（任意）</label>
+				<input type="text"
+						id="department"
+						name="department">
+			</div>
+
+				<!-- 追加項目の受け取りと保存はController連携時に調整します。 -->
+			<div>
+				<label for="loginId">ログインID（必須）</label>
+				<input type="text"
+						id="loginId"
+						name="loginId"
+						autocomplete="username"
+						required>
+            </div>
+
 			<div>
 				<label for="password"> パスワード</label>
 				<input
@@ -48,10 +72,11 @@
 			</div>
 			
 			<div>
-				<a href="/medITrail/admin/empList"
+				<a href="empList.html"
 					th:href="@{/admin/empList}">戻る</a>
 					
-				<button type="submit">確認</button>
+				<!-- 表示確認用リンクです。入力内容の受け渡しと入力チェックは後から連携します。 -->
+                    <a href="empRegistCheck.html">確認</a>
 			</div>
 		</form>
 	</main>

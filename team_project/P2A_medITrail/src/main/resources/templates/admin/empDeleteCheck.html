@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>勤務者情報削除確認 | medITrail</title>
 </head>
 <body>
+    <header>
+        <p>電子カルテ支援システム medITrail</p>
+        <nav aria-label="共通メニュー">
+            <a href="empList.html">勤務者管理</a>
+            <a href="../employee/operationGuide.html">操作ガイド</a>
+        </nav>
+        <form action="/medITrail/logout" th:action="@{/logout}" method="post">
+            <button type="submit">ログアウト</button>
+        </form>
+    </header>
 
+    <main>
+        <h1>勤務者情報の削除確認</h1>
+        <p>次の勤務者情報を削除します。内容を確認してください。</p>
+        <!-- 対象勤務者の情報は見本です。削除対象の取得は連携時に設定します。 -->
+        <dl>
+            <dt>勤務者名</dt>
+            <dd>サンプル勤務者</dd>
+            <dt>ふりがな</dt>
+            <dd>さんぷるきんむしゃ</dd>
+            <dt>職種</dt>
+            <dd>医師</dd>
+            <dt>所属</dt>
+            <dd>耳鼻咽喉科</dd>
+            <dt>ログインID</dt>
+            <dd>sample.staff</dd>
+        </dl>
+        <p>削除すると元に戻せません。</p>
+        <!-- 表示確認用リンクです。実際の削除処理は行いません。 -->
+        <p>
+            <a href="empDeleteCompletion.html">削除する</a>
+            <a href="empList.html">キャンセル</a>
+        </p>
+    </main>
 </body>
 </html>

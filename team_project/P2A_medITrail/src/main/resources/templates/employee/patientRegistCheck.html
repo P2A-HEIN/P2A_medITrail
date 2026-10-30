@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+			content="width=device-width, initial-scale=1.0">
+	<title>登録内容の確認 | medITrail</title>
 </head>
 <body>
+	<header>
+		<p>電子カルテ支援システム medITrail</p>
+		<nav aria-label="共通メニュー">
+			<a href="empTop.html">ダッシュボード</a>
+			<a href="petientList.html">患者管理</a>
+		</nav>
+	</header>
 
+	<main>
+		<h1>登録内容の確認</h1>
+		<p>内容をご確認のうえ、登録に進んでください。</p>
+
+		<!-- 表示確認用のサンプルです。入力内容との連携は後で行います。 -->
+		<dl>
+			<dt>氏名</dt>
+			<dd>サンプル患者</dd>
+
+			<dt>ふりがな</dt>
+			<dd>さんぷるかんじゃ</dd>
+
+			<dt>生年月日</dt>
+			<dd>2000-01-01</dd>
+
+			<dt>性別</dt>
+			<dd>女性</dd>
+
+			<dt>電話番号</dt>
+			<dd>—</dd>
+
+			<dt>担当医</dt>
+			<dd>未設定</dd>
+		</dl>
+
+		<!-- 表示確認用の遷移です。データベースには登録しません。 -->
+		<p>
+			<a href="patientRegistCompletion.html">
+				この内容で登録する
+			</a>
+			<a href="patientRegist.html">内容を修正する</a>
+		</p>
+	</main>
 </body>
 </html>

@@ -3,67 +3,70 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+			content="width=device-width, initial-scale=1.0">
 	<title>患者管理 | medITrail</title>
 </head>
 <body>
-	 <!--
-	  表示確認用のHTMLです。
-	  患者一覧、検索処理、遷移先は、
-	Controllerとの連携時に調整します。
+     <!--
+      表示確認用のHTMLです。
+      患者一覧、検索処理、遷移先は、
+    Controllerとの連携時に調整します。
    -->
 
-    <header>
+	<header>
 		<p>電子カルテ支援システム medITrail</p>
 
-		 <nav aria-label="共通メニュー">
- 			<ul>
+		<nav aria-label="共通メニュー">
+			<ul>
 				<li>
-                    <a href="empTop.html">ダッシュボード</a>
-				 </li>
-				 <li>
-					 <a href="petientList.html" aria-current="page">
-                        患者管理
+					<a href="empTop.html">ダッシュボード</a>
+				</li>
+				<li>
+					<a href="petientList.html" aria-current="page">
+						患者管理
 					</a>
-				 </li>
-				 <li>
-					 <a href="operationGuide.html">操作ガイド</a>
-				 </li>
-				 <li>
-					  <a href="../login.html" th:href="@{/logout}"> 
-						  ログアウト
-					  </a>
-				 </li>
+				</li>
+				<li>
+					<a href="operationGuide.html">操作ガイド</a>
+				</li>
+				<li>
+						<form action="/medITrail/logout"
+							th:action="@{/logout}"
+							method="post">
+							<button type="submit">ログアウト</button>
+						</form>
+					</li>
 			</ul>
 		</nav>
 	</header>
 
-	 <main>
-		 <h1>患者管理</h1>
-	
-		  <p>
-            <a href="patientRegist.html">新規患者登録</a>
-		  </p>
-	
-	 <section aria-labelledby="search-title">
-			 <h2 id="search-title">患者検索</h2>
+	<main>
+			<h1>患者管理</h1>
+    
+		<p>
+			<a href="patientRegist.html"
+				th:href="@{/employee/patientRegist}">新規患者登録</a>
+		</p>
+    
+	<section aria-labelledby="search-title">
+			<h2 id="search-title">患者検索</h2>
 
-			 <!-- 検索処理は後から実装します。 -->
-			 <form action="petientList.html" method="get">
-				 <label for="keyword">
-				    患者ID・患者名・担当勤務者名
-				 </label>
+			<!-- 検索処理は後から実装します。 -->
+			<form action="petientList.html" method="get">
+				<label for="keyword">
+                    患者ID・患者名・担当勤務者名
+				</label>
 
-				 <input type="search"
-						 id="keyword"
-					 	 name="keyword">
+				<input type="search"
+						id="keyword"
+						name="keyword">
 
-				<button type="submit">検索</button>
-			</form>
-		 </section>
+                <button type="submit">検索</button>
+            </form>
+         </section>
 
-		 <section aria-labelledby="patient-list-title">
-			 <h2 id="patient-list-title">患者一覧</h2>
+         <section aria-labelledby="patient-list-title">
+             <h2 id="patient-list-title">患者一覧</h2>
 
             <table>
                 <caption>登録患者情報</caption>
@@ -78,6 +81,7 @@
                         <th scope="col">担当医</th>
                         <th scope="col">問診票</th>
                         <th scope="col">詳細</th>
+                        <th scope="col">操作</th>
                     </tr>
                 </thead>
 
@@ -100,10 +104,14 @@
                                 詳細を開く
                             </a>
                         </td>
+                        <td>
+                            <a href="patientEdit.html">編集</a>
+                            <a href="patientDeleteCheck.html">削除</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-        </section>
+		</section>
 
         <p>
             <a href="empTop.html">ダッシュボードへ戻る</a>

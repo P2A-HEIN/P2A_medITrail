@@ -1,10 +1,177 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問診票の入力 | medITrail</title>
 </head>
 <body>
+    <header>
+        <p>電子カルテ支援システム medITrail</p>
+        <form action="/medITrail/logout" th:action="@{/logout}" method="post">
+            <button type="submit">ログアウト</button>
+        </form>
+    </header>
 
+    <main>
+        <h1>問診票の入力</h1>
+        <p>当てはまる項目を選び、症状について教えてください。</p>
+
+        <!-- 表示確認用です。患者の特定、入力内容の受け渡しと保存は後で連携します。 -->
+        <form action="questionnaireInputCompletion.html" method="post">
+            <!-- patIdは問診票を開く際にControllerから設定します。 -->
+            <input type="hidden" name="patId" value="">
+
+            <fieldset>
+                <legend>今日はどのような症状がありますか？</legend>
+                <p>当てはまるものをすべて選択してください。</p>
+
+                <fieldset>
+                    <legend>耳</legend>
+                    <div>
+                        <input type="checkbox" id="symptom-ear-pain" name="symptoms" value="耳の痛み">
+                        <label for="symptom-ear-pain">耳の痛み</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="symptom-ear-discharge" name="symptoms" value="耳だれ">
+                        <label for="symptom-ear-discharge">耳だれ</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="symptom-tinnitus" name="symptoms" value="耳鳴り">
+                        <label for="symptom-tinnitus">耳鳴り</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="symptom-hearing" name="symptoms" value="聞こえにくさ">
+                        <label for="symptom-hearing">聞こえにくさ</label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>鼻</legend>
+                    <div>
+                        <input type="checkbox" id="symptom-nasal-congestion" name="symptoms" value="鼻づまり">
+                        <label for="symptom-nasal-congestion">鼻づまり</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="symptom-runny-nose" name="symptoms" value="鼻水">
+                        <label for="symptom-runny-nose">鼻水</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="symptom-sneezing" name="symptoms" value="くしゃみ">
+                        <label for="symptom-sneezing">くしゃみ</label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>のど</legend>
+                    <div>
+                        <input type="checkbox" id="symptom-throat-pain" name="symptoms" value="のどの痛み">
+                        <label for="symptom-throat-pain">のどの痛み</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="symptom-hoarseness" name="symptoms" value="声のかすれ">
+                        <label for="symptom-hoarseness">声のかすれ</label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>その他</legend>
+                    <div>
+                        <input type="checkbox" id="symptom-dizziness" name="symptoms" value="めまい">
+                        <label for="symptom-dizziness">めまい</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="symptom-fever" name="symptoms" value="発熱">
+                        <label for="symptom-fever">発熱</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="symptom-cough" name="symptoms" value="せき">
+                        <label for="symptom-cough">せき</label>
+                    </div>
+                </fieldset>
+            </fieldset>
+
+            <div>
+                <label for="symptomsDetail">症状について詳しく教えてください（任意）</label>
+                <textarea id="symptomsDetail" name="symptomsDetail" rows="4"></textarea>
+            </div>
+
+            <div>
+                <label for="onsetPeriod">症状はいつ頃からありますか？（必須）</label>
+                <select id="onsetPeriod" name="onsetPeriod" required>
+                    <option value="">選択してください</option>
+                    <option value="今日から">今日から</option>
+                    <option value="昨日から">昨日から</option>
+                    <option value="2～3日前から">2～3日前から</option>
+                    <option value="1週間以内">1週間以内</option>
+                    <option value="1週間以上前から">1週間以上前から</option>
+                    <option value="その他・わからない">その他・わからない</option>
+                </select>
+            </div>
+            <div>
+                <label for="onsetDate">症状が始まった日（分かる場合）</label>
+                <input type="date" id="onsetDate" name="onsetDate">
+            </div>
+
+            <!-- onsetPeriodとonsetDateの扱いはController連携時に統一します。 -->
+            <fieldset>
+                <legend>アレルギーはありますか？（任意）</legend>
+                <input type="radio" id="allergy-none" name="allergyStatus" value="なし">
+                <label for="allergy-none">なし</label>
+                <input type="radio" id="allergy-present" name="allergyStatus" value="あり">
+                <label for="allergy-present">あり</label>
+                <input type="radio" id="allergy-unknown" name="allergyStatus" value="わからない">
+                <label for="allergy-unknown">わからない</label>
+                <div>
+                    <label for="allergy">アレルギーの内容</label>
+                    <textarea id="allergy" name="allergy" rows="2"></textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>服用中の薬はありますか？（任意）</legend>
+                <input type="radio" id="medications-none" name="medicationsStatus" value="なし">
+                <label for="medications-none">なし</label>
+                <input type="radio" id="medications-present" name="medicationsStatus" value="あり">
+                <label for="medications-present">あり</label>
+                <input type="radio" id="medications-unknown" name="medicationsStatus" value="わからない">
+                <label for="medications-unknown">わからない</label>
+                <div>
+                    <label for="takingMedications">薬の名前や服用状況</label>
+                    <textarea id="takingMedications" name="takingMedications" rows="2"></textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>過去に大きな病気の治療や手術を受けたことはありますか？（任意）</legend>
+                <input type="radio" id="history-none" name="medicalHistoryStatus" value="なし">
+                <label for="history-none">なし</label>
+                <input type="radio" id="history-present" name="medicalHistoryStatus" value="あり">
+                <label for="history-present">あり</label>
+                <input type="radio" id="history-unknown" name="medicalHistoryStatus" value="わからない">
+                <label for="history-unknown">わからない</label>
+                <div>
+                    <label for="medicalHistory">病気や手術の内容</label>
+                    <textarea id="medicalHistory" name="medicalHistory" rows="2"></textarea>
+                </div>
+            </fieldset>
+
+            <div>
+                <label for="familyHistory">ご家族の病気など、伝えておきたいこと（任意）</label>
+                <textarea id="familyHistory" name="familyHistory" rows="2"></textarea>
+            </div>
+            <div>
+                <label for="others">その他、伝えたいことがあれば自由にご記入ください（任意）</label>
+                <textarea id="others" name="others" rows="4"></textarea>
+            </div>
+
+            <!-- 表示確認用リンクです。送信と入力チェックは後から連携します。 -->
+            <!-- ラジオボタンの回答と詳細欄の内容は連携時にまとめて扱います。 -->
+            <p>
+                <a href="questionnaireInputCompletion.html">この内容で送信する</a>
+                <a href="../employee/empTop.html">戻る</a>
+            </p>
+        </form>
+    </main>
 </body>
 </html>
