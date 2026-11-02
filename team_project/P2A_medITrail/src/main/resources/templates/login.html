@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -50,5 +51,123 @@
 				<button type="submit">ログイン</button>
         </form>
 	</main>
+=======
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン | medITrail</title>
+</head>
+
+<body>
+    <main>
+        <h1>ログイン</h1>
+
+        <form th:action="@{/login}" method="post">
+
+            <div>
+                <label for="hosId">病院ID</label>
+                <input
+                    type="text"
+                    id="hosId"
+                    name="hospitalId"
+                    autocomplete="organization"
+                    required>
+            </div>
+
+            <div>
+                <label for="userId">ユーザーID</label>
+                <input
+                    type="text"
+                    id="userId"
+                    name="username"
+                    autocomplete="username"
+                    required>
+            </div>
+
+            <div>
+                <label for="password">パスワード</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    autocomplete="current-password"
+                    required>
+            </div>
+
+            <button type="submit">ログイン</button>
+
+        </form>
+    </main>
+>>>>>>> e0a21f70843268964afc45b9b0c72ec7a77324c0
 </body>
+
 </html>
+
+
+
+
+<style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        background-color: #f4f6f9;
+    }
+
+    main {
+        width: 100%;
+        max-width: 350px;
+        padding: 30px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    form div {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: #1976d2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #125ca1;
+    }
+</style>
+
+
+
+
