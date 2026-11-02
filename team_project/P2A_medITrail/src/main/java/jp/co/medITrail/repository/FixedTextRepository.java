@@ -12,4 +12,6 @@ public interface FixedTextRepository extends JpaRepository<FixedText, Integer> {
     List<FixedText> findByDeleteFlagOrderByCategoryAscTitleAsc(Integer deleteFlag);
 
     FixedText findByTextIdAndDeleteFlag(Integer textId, Integer deleteFlag);
+    
+    
 }
