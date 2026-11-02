@@ -1,10 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<h1>カルテ管理システム</h1>
 
-</body>
-</html>
+<hr>
+
+<h2>メニュー</h2>
+
+<button onclick="newChart()">
+    カルテ作成
+</button>
+
+<button onclick="showList()">
+    カルテ編集・閲覧
+</button>
+
+<hr>
+
+<h2>カルテ作成</h2>
+
+<form id="chartForm">
+
+    <p>
+        <label>患者ID：</label>
+        <input type="text" id="patientId"
+               size="40" required>
+    </p>
+
+    <p>
+        <label>患者氏名：</label>
+        <input type="text" id="patientName"
+               size="40" required>
+    </p>
+
+    <p>
+        <label>担当者名：</label>
+        <input type="text" id="staffName"
+               size="40" required>
+    </p>
+
+    <p>
+        <label>診察日：</label>
+        <input type="date" id="visitDate" required>
+    </p>
+
+    <p>
+        <label>カルテ内容：</label><br>
+        <textarea id="record"
+                  rows="10" cols="60"
+                  required></textarea>
+    </p>
+
+    <p>
+        <button type="submit">
+            保存
+        </button>
+
+        <button type="reset">
+            入力クリア
+        </button>
+    </p>
+
+</form>
