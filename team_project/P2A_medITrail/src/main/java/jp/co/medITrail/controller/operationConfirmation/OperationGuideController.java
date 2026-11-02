@@ -1,4 +1,4 @@
-package jp.co.medITrail.operationConfirmation;
+package jp.co.medITrail.controller.operationConfirmation;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package jp.co.medITrail.patientManagement;
+package jp.co.medITrail.controller.patientManagement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

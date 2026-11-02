@@ -1,4 +1,4 @@
-package jp.co.medITrail.interviewManagement;
+package jp.co.medITrail.controller.interviewManagement;
 
 import java.util.Date;
 

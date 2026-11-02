@@ -1,4 +1,4 @@
-package jp.co.medITrail.certification;
+package jp.co.medITrail.controller.certification;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
