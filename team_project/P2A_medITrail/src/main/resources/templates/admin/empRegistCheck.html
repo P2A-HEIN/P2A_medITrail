@@ -15,42 +15,42 @@
 		<p>入力内容を確認し、登録ボタンを押してください。</p>
 		
 		<form action="/medITrail/admin/empRegistCompletion"
-              th:action="@{/admin/empRegistCompletion}"
-              th:object="${employeeInformationRegistrationForm}"
-              method="post">
+				th:action="@{/admin/empRegistCompletion}"
+				th:object="${employeeInformationRegistrationForm}"
+				method="post">
               
-              <dl>
+				<dl>
 				  <dt>勤務者名</dt>
 				  <dd th:text="*{empName}">サンプル勤務者</dd>
 
-                  <!-- 追加項目の表示値はController連携時に設定します。 -->
-                  <dt>ふりがな</dt>
-                  <dd>—</dd>
+				<!-- 追加項目の表示値はController連携時に設定します。 -->
+					<dt>ふりがな</dt>
+					<dd>—</dd>
 				  
-				  <dt>職種</dt>
-				  <dd th:text="*{jobType}">医師</dd>
+					<dt>職種</dt>
+					<dd th:text="*{jobType}">医師</dd>
 
-                  <dt>所属</dt>
-                  <dd>—</dd>
+					<dt>所属</dt>
+					<dd>—</dd>
 
-                  <dt>ログインID</dt>
-                  <dd>—</dd>
+					<dt>ログインID</dt>
+					<dd>—</dd>
 				  
-				  <dt>パスワード</dt>
-				  <dd>非表示</dd>
-              </dl>
+					<dt>パスワード</dt>
+					<dd>非表示</dd>
+				</dl>
               
-              <input type="hidden" th:field="*{empName}">
-              <input type="hidden" th:field="*{jobType}">
-              <input type="hidden" th:field="*{password}">
-              
-              <div>
-                  <a href="empRegist.html"
-                     th:href="@{/admin/empRegist}">戻る</a>
+				<input type="hidden" th:field="*{empName}">
+				<input type="hidden" th:field="*{jobType}">
+				<input type="hidden" th:field="*{password}">
+			              
+				<div>
+					<a href="empRegist.html"
+					th:href="@{/admin/empRegist}">戻る</a>
 				  
 				  <!-- 登録処理は行わず、完了画面の表示を確認します。 -->
-                  <a href="empRegistCompletion.html">登録</a>
-              </div>
+					<a href="empRegistCompletion.html">登録</a>
+				</div>
 		</form>
 	</main>
 </body>
