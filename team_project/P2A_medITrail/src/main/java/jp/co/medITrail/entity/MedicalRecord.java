@@ -7,8 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
 
 @Entity
 @Table(name = "medical_records")
@@ -42,11 +41,11 @@ public class MedicalRecord {
     @Column(name = "remarks")
     private String remarks;
 
-    @Temporal(TemporalType.TIMESTAMP)
+
     @Column(name = "created_date")
     private Date createdDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
+  
     @Column(name = "updated_date")
     private Date updatedDate;
 
