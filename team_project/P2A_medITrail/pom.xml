@@ -1,7 +1,9 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> aaf273f1f01f5d6431a2fbe683f379974a4feb88
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -69,6 +71,7 @@
 			<artifactId>ojdbc11</artifactId>
 		</dependency>
 	</dependencies>
+<<<<<<< HEAD
 =======
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -132,6 +135,16 @@
             </plugin>
         </plugins>
     </build>
+=======
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+>>>>>>> aaf273f1f01f5d6431a2fbe683f379974a4feb88
 
 </project>
-

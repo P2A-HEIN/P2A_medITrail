@@ -1,5 +1,5 @@
 
-package jp.co.medITrail.medicalRecordManagement;
+package jp.co.medITrail.controller.medicalRecordManagement;
 import java.util.Date;
 import java.util.List;
 
