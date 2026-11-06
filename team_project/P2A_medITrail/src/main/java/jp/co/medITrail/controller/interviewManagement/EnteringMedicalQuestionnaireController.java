@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.medITrail.entity.Questionnaire;
 import jp.co.medITrail.form.EnteringMedicalQuestionnaireForm;
 import jp.co.medITrail.repository.QuestionnaireRepository;
+import jp.co.medITrail.service.GeminiService;
 
 @Controller
 public class EnteringMedicalQuestionnaireController {
 
-    @Autowired
-    private QuestionnaireRepository questionnaireRepository;
+	@Autowired
+	private QuestionnaireRepository questionnaireRepository;
 
+	@Autowired
+	private GeminiService geminiService;
+	
+	
     @RequestMapping(path="/patient/questionnaireInput", method=RequestMethod.GET)
     public String enteringMedicalQuestionnaire(Integer patId,EnteringMedicalQuestionnaireForm form) {
     	
@@ -45,6 +50,13 @@ public class EnteringMedicalQuestionnaireController {
         questionnaire.setOthers(form.getOthers());
 
         questionnaire.setInputDate(new Date());
+        
+        String dummyText = "主訴：頭痛。昨日の朝から頭が痛い。"
+                + "アレルギー：なし。服用中の薬：なし。既往歴：なし。";
+
+        String summary = geminiService.summarize(dummyText);
+
+        questionnaire.setAiSummary(summary);
 
         questionnaireRepository.save(questionnaire);
 

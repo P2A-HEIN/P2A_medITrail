@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
@@ -16,8 +17,8 @@ public class GeminiService {
     private String apiKey;
     
     private static final String GEMINI_URL =
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
-
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent";    
+    
     public String summarize(String text) {
     	
     	String prompt = "以下の問診内容を医療従事者が確認しやすいように簡潔に要約してください。"
@@ -37,13 +38,21 @@ public class GeminiService {
         );
         
         
-        String response = restClient.post()
-                .uri(GEMINI_URL)
-                .header("x-goog-api-key", apiKey)
-                .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-                .body(requestBody)
-                .retrieve()
-                .body(String.class);
+        String response;
+
+        try {
+            response = restClient.post()
+                    .uri(GEMINI_URL)
+                    .header("x-goog-api-key", apiKey)
+                    .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
+                    .body(requestBody)
+                    .retrieve()
+                    .body(String.class);
+
+        } catch (RestClientException e) {
+            throw new IllegalStateException(
+                    "Gemini APIとの通信に失敗しました。", e);
+        }
         
         ObjectMapper mapper = new ObjectMapper();
 
@@ -57,6 +66,11 @@ public class GeminiService {
                 .path(0)
                 .path("text")
                 .stringValue();
+
+        if (summary == null || summary.isBlank()) {
+            throw new IllegalStateException(
+                    "Geminiから要約文を取得できませんでした。");
+        }
 
         return summary;
     }
