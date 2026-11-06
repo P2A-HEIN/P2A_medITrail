@@ -18,9 +18,9 @@
         <p>当てはまる項目を選び、症状について教えてください。</p>
 
         <!-- 表示確認用です。患者の特定、入力内容の受け渡しと保存は後で連携します。 -->
-        <form action="questionnaireInputCompletion.html" method="post">
+        <form th:action="@{/patient/questionnaireInputCompletion}" method="post">
             <!-- patIdは問診票を開く際にControllerから設定します。 -->
-            <input type="hidden" name="patId" value="">
+            <input type="hidden" name="patId" th:value="${patId}">
 
             <fieldset>
                 <legend>今日はどのような症状がありますか？</legend>
@@ -168,7 +168,7 @@
             <!-- 表示確認用リンクです。送信と入力チェックは後から連携します。 -->
             <!-- ラジオボタンの回答と詳細欄の内容は連携時にまとめて扱います。 -->
             <p>
-                <a href="questionnaireInputCompletion.html">この内容で送信する</a>
+                <button type="submit">この内容で送信する</button>
                 <a href="../employee/empTop.html">戻る</a>
             </p>
         </form>

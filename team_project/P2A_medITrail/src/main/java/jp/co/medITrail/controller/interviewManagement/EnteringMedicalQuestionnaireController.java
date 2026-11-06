@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,13 +23,18 @@ public class EnteringMedicalQuestionnaireController {
 	private GeminiService geminiService;
 	
 	
-    @RequestMapping(path="/patient/questionnaireInput", method=RequestMethod.GET)
-    public String enteringMedicalQuestionnaire(Integer patId,EnteringMedicalQuestionnaireForm form) {
-    	
-    	form.setPatId(patId);
+	@RequestMapping(path="/patient/questionnaireInput", method=RequestMethod.GET)
+	public String enteringMedicalQuestionnaire(
+	        Integer patId,
+	        EnteringMedicalQuestionnaireForm form,
+	        Model model) {
 
-        return "patient/questionnaireInput";
-    }
+	    form.setPatId(patId);
+
+	    model.addAttribute("patId", patId);
+
+	    return "patient/questionnaireInput";
+	}
 
     @RequestMapping(path="/patient/questionnaireInputCompletion", method=RequestMethod.POST)
     public String enteringMedicalQuestionnaireComplete(
