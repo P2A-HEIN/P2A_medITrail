@@ -57,10 +57,17 @@ public class EnteringMedicalQuestionnaireController {
 
         questionnaire.setInputDate(new Date());
         
-        String dummyText = "主訴：頭痛。昨日の朝から頭が痛い。"
-                + "アレルギー：なし。服用中の薬：なし。既往歴：なし。";
-
-        String summary = geminiService.summarize(dummyText);
+        String questionnaireText = "症状：" + form.getSymptoms()
+        + "\n症状の詳細：" + form.getSymptomsDetail()
+        + "\n発症日：" + form.getOnsetDate()
+        + "\nアレルギー：" + form.getAllergy()
+        + "\n服用中の薬：" + form.getTakingMedications()
+        + "\n既往歴：" + form.getMedicalHistory()
+        + "\n家族歴：" + form.getFamilyHistory()
+        + "\nその他：" + form.getOthers();
+        
+        
+        String summary = geminiService.summarize(questionnaireText);
 
         questionnaire.setAiSummary(summary);
 
