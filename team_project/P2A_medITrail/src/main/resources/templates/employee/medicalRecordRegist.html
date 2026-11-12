@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>カルテ登録</title>
 </head>
 <body>
+
+<h1>カルテ登録</h1>
+
+<form th:action="@{/medicalrecord/regist/check}"
+      th:object="${medicalRecord}" method="post">
+
+    <label>患者ID</label>
+    <input type="text" th:field="*{patientId}" required>
+    <br><br>
+
+    <label>患者名</label>
+    <input type="text" th:field="*{patientName}" required>
+    <br><br>
+
+    <label>担当勤務者</label>
+    <input type="text" th:field="*{staffName}" required>
+    <br><br>
+
+    <label>カルテ内容</label>
+    <textarea th:field="*{recordContent}" required></textarea>
+    <br><br>
+
+    <button type="submit">確認する</button>
+    <a th:href="@{/medicalrecord}">戻る</a>
+
+</form>
 
 </body>
 </html>

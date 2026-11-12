@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>カルテ登録完了</title>
 </head>
 <body>
+
+<h1>カルテ登録完了</h1>
+
+<p>カルテの登録が完了しました。</p>
+
+<p th:text="${message}">
+    カルテを正常に登録しました。
+</p>
+
+<a th:href="@{/medicalrecord}">
+    カルテ一覧へ戻る
+</a>
+
+<br><br>
+
+<a th:href="@{/medicalrecord/regist}">
+    続けて登録する
+</a>
 
 </body>
 </html>
