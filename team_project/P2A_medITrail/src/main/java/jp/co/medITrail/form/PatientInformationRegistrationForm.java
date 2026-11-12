@@ -2,10 +2,13 @@ package jp.co.medITrail.form;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class PatientInformationRegistrationForm {
 
     private String patName;
-
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 
     private Integer gender;

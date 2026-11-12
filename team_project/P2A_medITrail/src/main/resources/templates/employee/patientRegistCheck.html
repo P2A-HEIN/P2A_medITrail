@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport"
-			content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>登録内容の確認 | medITrail</title>
 </head>
+
 <body>
 	<header>
 		<p>電子カルテ支援システム medITrail</p>
@@ -22,31 +23,29 @@
 		<!-- 表示確認用のサンプルです。入力内容との連携は後で行います。 -->
 		<dl>
 			<dt>氏名</dt>
-			<dd>サンプル患者</dd>
+			<dd th:text="${patientForm.patName}">サンプル患者</dd>
 
-			<dt>ふりがな</dt>
-			<dd>さんぷるかんじゃ</dd>
 
 			<dt>生年月日</dt>
-			<dd>2000-01-01</dd>
+			<dd th:text="${#dates.format(patientForm.birth, 'yyyy-MM-dd')}">2000-01-01</dd>
 
 			<dt>性別</dt>
-			<dd>女性</dd>
+			<dd th:text="${patientForm.gender == 1 ? '男性' : '女性'}">女性</dd>
 
-			<dt>電話番号</dt>
-			<dd>—</dd>
-
-			<dt>担当医</dt>
-			<dd>未設定</dd>
 		</dl>
 
 		<!-- 表示確認用の遷移です。データベースには登録しません。 -->
-		<p>
-			<a href="patientRegistCompletion.html">
-				この内容で登録する
-			</a>
-			<a href="patientRegist.html">内容を修正する</a>
-		</p>
+		<form th:action="@{/employee/patientRegistCompletion}" method="post">
+			<input type="hidden" name="patName" th:value="${patientForm.patName}">
+
+			<input type="hidden" name="birth" th:value="${#dates.format(patientForm.birth, 'yyyy-MM-dd')}">
+			
+			<input type="hidden" name="gender" th:value="${patientForm.gender}">
+
+			<button type="submit">この内容で登録する</button>
+		</form>
+		<a href="patientRegist.html">内容を修正する</a>
 	</main>
 </body>
+
 </html>
