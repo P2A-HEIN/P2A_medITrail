@@ -2,6 +2,8 @@ package jp.co.medITrail.form;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class EnteringMedicalQuestionnaireForm {
 
     private String symptoms;
@@ -10,6 +12,7 @@ public class EnteringMedicalQuestionnaireForm {
     
     private Integer patId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date onsetDate;
 
     private String allergy;
