@@ -12,7 +12,7 @@
 		<p>電子カルテ支援システム medITrail</p>
 		<nav aria-label="共通メニュー">
 			<a href="empTop.html">ダッシュボード</a>
-			<a href="petientList.html">患者管理</a>
+			<a th:href="@{/employee/patientList}">患者管理</a>
 		</nav>
 	</header>
 
@@ -20,7 +20,6 @@
 		<h1>登録内容の確認</h1>
 		<p>内容をご確認のうえ、登録に進んでください。</p>
 
-		<!-- 表示確認用のサンプルです。入力内容との連携は後で行います。 -->
 		<dl>
 			<dt>氏名</dt>
 			<dd th:text="${patientForm.patName}">サンプル患者</dd>
@@ -34,17 +33,16 @@
 
 		</dl>
 
-		<!-- 表示確認用の遷移です。データベースには登録しません。 -->
 		<form th:action="@{/employee/patientRegistCompletion}" method="post">
 			<input type="hidden" name="patName" th:value="${patientForm.patName}">
 
 			<input type="hidden" name="birth" th:value="${#dates.format(patientForm.birth, 'yyyy-MM-dd')}">
-			
+
 			<input type="hidden" name="gender" th:value="${patientForm.gender}">
 
 			<button type="submit">この内容で登録する</button>
 		</form>
-		<a href="patientRegist.html">内容を修正する</a>
+		<a th:href="@{/employee/patientRegist}">戻る</a>
 	</main>
 </body>
 

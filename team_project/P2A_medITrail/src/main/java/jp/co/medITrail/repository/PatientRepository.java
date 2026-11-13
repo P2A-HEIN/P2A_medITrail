@@ -14,5 +14,5 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
 	Patient findByPatIdAndHosIdAndDeleteFlag(Integer patId, Integer hosId, Integer deleteFlag);
 
-	List<Patient> findByHosIdAndDeleteFlag(Integer hosId, Integer deleteFlag);
+	List<Patient> findByHosIdAndDeleteFlagOrderByPatIdAsc(Integer hosId, Integer deleteFlag);
 }

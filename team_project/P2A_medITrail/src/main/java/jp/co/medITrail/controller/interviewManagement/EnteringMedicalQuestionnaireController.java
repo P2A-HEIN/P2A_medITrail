@@ -21,59 +21,63 @@ public class EnteringMedicalQuestionnaireController {
 
 	@Autowired
 	private GeminiService geminiService;
-	
-	
-	@RequestMapping(path="/patient/questionnaireInput", method=RequestMethod.GET)
+
+	@RequestMapping(path = "/patient/questionnaireInput", method = RequestMethod.GET)
 	public String enteringMedicalQuestionnaire(
-	        Integer patId,
-	        EnteringMedicalQuestionnaireForm form,
-	        Model model) {
+			Integer patId,
+			EnteringMedicalQuestionnaireForm form,
+			Model model) {
 
-	    form.setPatId(patId);
+		form.setPatId(patId);
 
-	    model.addAttribute("patId", patId);
+		model.addAttribute("patId", patId);
 
-	    return "patient/questionnaireInput";
+		return "patient/questionnaireInput";
 	}
 
-    @RequestMapping(path="/patient/questionnaireInputCompletion", method=RequestMethod.POST)
-    public String enteringMedicalQuestionnaireComplete(
-            EnteringMedicalQuestionnaireForm form) {
+	@RequestMapping(path = "/patient/questionnaireInputCompletion", method = RequestMethod.POST)
+	public String enteringMedicalQuestionnaireComplete(
+			EnteringMedicalQuestionnaireForm form) {
 
-        Integer questionnaireId = questionnaireRepository.getNextQuestionnaire();
+		Integer questionnaireId = questionnaireRepository.getNextQuestionnaire();
 
-        Questionnaire questionnaire = new Questionnaire();
+		Questionnaire questionnaire = new Questionnaire();
 
-        questionnaire.setQuestionnaireId(questionnaireId);
-        questionnaire.setPatId(form.getPatId());
-        questionnaire.setSymptoms(form.getSymptoms());
-        questionnaire.setSymptomsDetail(form.getSymptomsDetail());
-        questionnaire.setOnsetDate(form.getOnsetDate());
-        questionnaire.setAllergy(form.getAllergy());
-        questionnaire.setTakingMedications(form.getTakingMedications());
-        questionnaire.setMedicalHistory(form.getMedicalHistory());
-        questionnaire.setFamilyHistory(form.getFamilyHistory());
-        questionnaire.setOthers(form.getOthers());
+		questionnaire.setQuestionnaireId(questionnaireId);
+		questionnaire.setPatId(form.getPatId());
+		questionnaire.setSymptoms(form.getSymptoms());
+		questionnaire.setSymptomsDetail(form.getSymptomsDetail());
+		questionnaire.setOnsetDate(form.getOnsetDate());
+		questionnaire.setAllergy(form.getAllergy());
+		questionnaire.setTakingMedications(form.getTakingMedications());
+		questionnaire.setMedicalHistory(form.getMedicalHistory());
+		questionnaire.setFamilyHistory(form.getFamilyHistory());
+		questionnaire.setOthers(form.getOthers());
 
-        questionnaire.setInputDate(new Date());
-        
-        String questionnaireText = "症状：" + form.getSymptoms()
-        + "\n症状の詳細：" + form.getSymptomsDetail()
-        + "\n発症日：" + form.getOnsetDate()
-        + "\nアレルギー：" + form.getAllergy()
-        + "\n服用中の薬：" + form.getTakingMedications()
-        + "\n既往歴：" + form.getMedicalHistory()
-        + "\n家族歴：" + form.getFamilyHistory()
-        + "\nその他：" + form.getOthers();
-        
-        
-        String summary = geminiService.summarize(questionnaireText);
+		questionnaire.setInputDate(new Date());
 
-        questionnaire.setAiSummary(summary);
+		String questionnaireText = "症状：" + form.getSymptoms()
+				+ "\n症状の詳細：" + form.getSymptomsDetail()
+				+ "\n発症日：" + form.getOnsetDate()
+				+ "\nアレルギー：" + form.getAllergy()
+				+ "\n服用中の薬：" + form.getTakingMedications()
+				+ "\n既往歴：" + form.getMedicalHistory()
+				+ "\n家族歴：" + form.getFamilyHistory()
+				+ "\nその他：" + form.getOthers();
 
-        questionnaireRepository.save(questionnaire);
+		String summary = geminiService.summarize(questionnaireText);
 
-        return "patient/questionnaireInputCompletion";
-    }
+		questionnaire.setAiSummary(summary);
+
+		questionnaireRepository.save(questionnaire);
+
+		return "redirect:/patient/questionnaireInputCompletion";
+	}
+
+	@RequestMapping(path = "/patient/questionnaireInputCompletion", method = RequestMethod.GET)
+	public String questionnaireInputCompletion() {
+
+		return "patient/questionnaireInputCompletion";
+	}
 
 }

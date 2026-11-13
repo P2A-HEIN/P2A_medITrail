@@ -24,11 +24,23 @@ public class PatientInformationRegistrationController {
 
 		Integer hosId = (Integer) session.getAttribute("hosId");
 
-		List<Patient> patientList = patientRepository.findByHosIdAndDeleteFlag(hosId, 0);
+		List<Patient> patientList = patientRepository.findByHosIdAndDeleteFlagOrderByPatIdAsc(hosId, 0);
 
 		model.addAttribute("patientList", patientList);
 
 		return "employee/patientList";
+	}
+
+	@RequestMapping(path = "/patient/patientSelection", method = RequestMethod.GET)
+	public String patientSelection(HttpSession session, Model model) {
+
+		Integer hosId = (Integer) session.getAttribute("hosId");
+
+		List<Patient> patientList = patientRepository.findByHosIdAndDeleteFlagOrderByPatIdAsc(hosId, 0);
+
+		model.addAttribute("patientList", patientList);
+
+		return "patient/patientSelection";
 	}
 
 	@RequestMapping(path = "/employee/patientRegist", method = RequestMethod.GET)
