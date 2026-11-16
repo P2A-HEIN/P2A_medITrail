@@ -70,7 +70,10 @@
 
 		<section aria-labelledby="records-title">
 			<h2 id="records-title">カルテ一覧</h2>
-			<p><a href="medicalRecordRegist.html">カルテを作成する</a></p>
+			<p th:if="${!#lists.isEmpty(questionnaireList)}">
+				<a
+					th:href="@{/employee/medicalRecordRegist(patId=${patient.patId},questionnaireId=${questionnaireList[0].questionnaireId})}">カルテを作成する</a>
+			</p>
 			<!-- カルテの画面と処理は担当者が連携します。 -->
 			<table>
 				<caption>患者のカルテ記録</caption>

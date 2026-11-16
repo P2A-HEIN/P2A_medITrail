@@ -1,5 +1,6 @@
 
 package jp.co.medITrail.controller.medicalRecordManagement;
+
 import java.util.Date;
 import java.util.List;
 
@@ -22,102 +23,104 @@ import jp.co.medITrail.repository.QuestionnaireRepository;
 @Controller
 public class MedicalRecordCreationController {
 
-    @Autowired
-    private MedicalRecordRepository medicalRecordRepository;
-    
-    @Autowired
-    private QuestionnaireRepository questionnaireRepository;
-    
-    @Autowired
-    private PatientRepository patientRepository;
-    
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    
-    @Autowired
-    private FixedTextRepository fixedTextRepository;
+	@Autowired
+	private MedicalRecordRepository medicalRecordRepository;
 
+	@Autowired
+	private QuestionnaireRepository questionnaireRepository;
 
-@RequestMapping(path="/employee/medicalRecordRegist", method=RequestMethod.GET)
-public String medicalRecordCreation(Integer patId,Integer questionnaireId,MedicalRecordCreationForm form,Model model) {
+	@Autowired
+	private PatientRepository patientRepository;
 
-    form.setPatId(patId);
-    form.setQuestionnaireId(questionnaireId);
+	@Autowired
+	private EmployeeRepository employeeRepository;
 
-    List<FixedText> fixedTextList =fixedTextRepository.findByDeleteFlagOrderByCategoryAscTitleAsc(0);
+	@Autowired
+	private FixedTextRepository fixedTextRepository;
 
-    model.addAttribute("fixedTextList", fixedTextList);
+	@RequestMapping(path = "/employee/medicalRecordRegist", method = RequestMethod.GET)
+	public String medicalRecordCreation(Integer patId, Integer questionnaireId, MedicalRecordCreationForm form,
+			Model model) {
 
-    return "employee/medicalRecordRegist";
-}
+		form.setPatId(patId);
+		form.setQuestionnaireId(questionnaireId);
 
+		model.addAttribute("medicalRecordCreationForm", form);
 
-    @RequestMapping(path="/employee/medicalRecordRegistCheck", method=RequestMethod.POST)
-    public String medicalRecordCreationCheck(MedicalRecordCreationForm form,Model model) {
+		List<FixedText> fixedTextList = fixedTextRepository.findByDeleteFlagOrderByCategoryAscTitleAsc(0);
 
-        model.addAttribute("medicalRecordCreationForm", form);
+		model.addAttribute("fixedTextList", fixedTextList);
 
-        return "employee/medicalRecordRegistCheck";
-    }
+		return "employee/medicalRecordRegist";
+	}
 
-    @RequestMapping(path = "/employee/medicalRecordRegistCompletion",method = RequestMethod.POST)
-    	public String medicalRecordCreationComplete(MedicalRecordCreationForm form,HttpSession session,Model model) {
+	@RequestMapping(path = "/employee/medicalRecordRegistCheck", method = RequestMethod.POST)
+	public String medicalRecordCreationCheck(MedicalRecordCreationForm form, Model model) {
 
-    	    Integer empId = (Integer) session.getAttribute("empId");
-    	    Integer hosId = (Integer) session.getAttribute("hosId");
+		model.addAttribute("medicalRecordCreationForm", form);
 
-    	    if (empId == null || hosId == null|| form.getPatId() == null|| form.getQuestionnaireId() == null) {
+		return "employee/medicalRecordRegistCheck";
+	}
 
-    	        model.addAttribute("errorMessage","ログイン情報、患者情報、または問診票情報を取得できませんでした。");
+	@RequestMapping(path = "/employee/medicalRecordRegistCompletion", method = RequestMethod.POST)
+	public String medicalRecordCreationComplete(MedicalRecordCreationForm form, HttpSession session, Model model) {
 
-    	        return "employee/medicalRecordRegist";
-    	    }
-    	    
-    	    var employee = employeeRepository.findByEmpIdAndHosIdAndDeleteFlag(empId, hosId, 0);
+		Integer empId = (Integer) session.getAttribute("empId");
+		Integer hosId = (Integer) session.getAttribute("hosId");
 
-    	    if (employee == null) {
-    	        model.addAttribute("errorMessage","ログイン中の職員情報が見つからないか、利用できない状態です。");
+		if (empId == null || hosId == null || form.getPatId() == null || form.getQuestionnaireId() == null) {
 
-    	        return "employee/medicalRecordRegist";
-    	    }
-    	    
-    	    var patient = patientRepository.findByPatIdAndHosIdAndDeleteFlag(form.getPatId(), hosId, 0);
+			model.addAttribute("errorMessage", "ログイン情報、患者情報、または問診票情報を取得できませんでした。");
 
-    	    if (patient == null) {
-    	        model.addAttribute("errorMessage","指定された患者が見つからないか、登録された病院が異なります。");
-    	        return "employee/medicalRecordRegist";
-    	    }
+			return "employee/medicalRecordRegist";
+		}
 
-    	    var questionnaire =questionnaireRepository.findByQuestionnaireIdAndPatId(form.getQuestionnaireId(),form.getPatId());
+		var employee = employeeRepository.findByEmpIdAndHosIdAndDeleteFlag(empId, hosId, 0);
 
-    	    if (questionnaire == null) {
-    	        model.addAttribute("errorMessage","指定された患者の問診票が見つかりませんでした。");
+		if (employee == null) {
+			model.addAttribute("errorMessage", "ログイン中の職員情報が見つからないか、利用できない状態です。");
 
-    	        return "employee/medicalRecordRegist";
-    	    }
+			return "employee/medicalRecordRegist";
+		}
 
-    	    Integer medId = medicalRecordRepository.getNextMedicalRecord();
+		var patient = patientRepository.findByPatIdAndHosIdAndDeleteFlag(form.getPatId(), hosId, 0);
 
-    	    MedicalRecord medicalRecord = new MedicalRecord();
+		if (patient == null) {
+			model.addAttribute("errorMessage", "指定された患者が見つからないか、登録された病院が異なります。");
+			return "employee/medicalRecordRegist";
+		}
 
-    	    medicalRecord.setMedId(medId);
-    	    medicalRecord.setPatId(form.getPatId());
-    	    medicalRecord.setQuestionnaireId(form.getQuestionnaireId());
-    	    medicalRecord.setCreatedEmpId(empId);
-    	    medicalRecord.setUpdatedEmpId(empId);
+		var questionnaire = questionnaireRepository.findByQuestionnaireIdAndPatId(form.getQuestionnaireId(),
+				form.getPatId());
 
-    	    medicalRecord.setDiagnosisDetails(form.getDiagnosisDetails());
-    	    medicalRecord.setTreatmentDetails(form.getTreatmentDetails());
-    	    medicalRecord.setPrescriptionDetails(form.getPrescriptionDetails());
-    	    medicalRecord.setRemarks(form.getRemarks());
+		if (questionnaire == null) {
+			model.addAttribute("errorMessage", "指定された患者の問診票が見つかりませんでした。");
 
-    	    Date now = new Date();
-    	    medicalRecord.setCreatedDate(now);
-    	    medicalRecord.setUpdatedDate(now);
+			return "employee/medicalRecordRegist";
+		}
 
-    	    medicalRecordRepository.save(medicalRecord);
+		Integer medId = medicalRecordRepository.getNextMedicalRecord();
 
-    	    return "employee/medicalRecordRegistCompletion";
-    	}
+		MedicalRecord medicalRecord = new MedicalRecord();
+
+		medicalRecord.setMedId(medId);
+		medicalRecord.setPatId(form.getPatId());
+		medicalRecord.setQuestionnaireId(form.getQuestionnaireId());
+		medicalRecord.setCreatedEmpId(empId);
+		medicalRecord.setUpdatedEmpId(empId);
+
+		medicalRecord.setDiagnosisDetails(form.getDiagnosisDetails());
+		medicalRecord.setTreatmentDetails(form.getTreatmentDetails());
+		medicalRecord.setPrescriptionDetails(form.getPrescriptionDetails());
+		medicalRecord.setRemarks(form.getRemarks());
+
+		Date now = new Date();
+		medicalRecord.setCreatedDate(now);
+		medicalRecord.setUpdatedDate(now);
+
+		medicalRecordRepository.save(medicalRecord);
+
+		return "employee/medicalRecordRegistCompletion";
+	}
 
 }

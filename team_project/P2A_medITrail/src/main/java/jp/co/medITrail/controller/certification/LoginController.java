@@ -32,7 +32,7 @@ public class LoginController {
 
 		if (admin != null) {
 			session.setAttribute("hosId", hosId);
-			return "admin/empList";
+			return "redirect:/admin/empList";
 		}
 
 		Employee employee = employeeRepository.findByHosIdAndEmpIdAndPassword(hosId, userId, password);

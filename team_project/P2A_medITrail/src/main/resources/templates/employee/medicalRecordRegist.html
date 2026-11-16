@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>カルテ登録</title>
+	<meta charset="UTF-8">
+	<title>カルテ登録</title>
 </head>
+
 <body>
 
-<h1>カルテ登録</h1>
+	<h1>カルテ登録</h1>
 
-<form th:action="@{/medicalrecord/regist/check}"
-      th:object="${medicalRecord}" method="post">
 
-    <label>患者ID</label>
-    <input type="text" th:field="*{patientId}" required>
-    <br><br>
+	<form th:action="@{/employee/medicalRecordRegistCheck}" th:object="${medicalRecordCreationForm}" method="post">
 
-    <label>患者名</label>
-    <input type="text" th:field="*{patientName}" required>
-    <br><br>
+		<input type="hidden" th:field="*{patId}">
+		<input type="hidden" th:field="*{questionnaireId}">
 
-    <label>担当勤務者</label>
-    <input type="text" th:field="*{staffName}" required>
-    <br><br>
+		<label>診断内容</label>
+		<textarea th:field="*{diagnosisDetails}"></textarea>
+		<br><br>
 
-    <label>カルテ内容</label>
-    <textarea th:field="*{recordContent}" required></textarea>
-    <br><br>
+		<label>処置内容</label>
+		<textarea th:field="*{treatmentDetails}"></textarea>
+		<br><br>
 
-    <button type="submit">確認する</button>
-    <a th:href="@{/medicalrecord}">戻る</a>
+		<label>処方内容</label>
+		<textarea th:field="*{prescriptionDetails}"></textarea>
+		<br><br>
 
-</form>
+		<label>備考</label>
+		<textarea th:field="*{remarks}"></textarea>
+		<br><br>
+
+		<button type="submit">確認する</button>
+	</form>
+
 
 </body>
+
 </html>

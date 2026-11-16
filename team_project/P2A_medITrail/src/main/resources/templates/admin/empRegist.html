@@ -1,38 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>勤務者登録 | medITrail</title>
 </head>
+
 <body>
 	<header>
 		<p>電子カルテ支援システム medITrail</p>
 	</header>
-	
+
 	<main>
 		<h1>勤務者登録</h1>
 		<p>勤務者情報を入力してください。</p>
-		
-		<form action="/medITrail/admin/empRegistCheck"
-			th:action="@{/admin/empRegistCheck}"
-			method="post">
-			
+
+		<form action="/medITrail/admin/empRegistCheck" th:action="@{/admin/empRegistCheck}" method="post">
+
 			<div>
 				<label for="empName">勤務者名</label>
-				<input
-					type="text"
-					id="empName"
-					name="empName"
-					required>
+				<input type="text" id="empName" name="empName" required>
 			</div>
-			
-			<div>
-				<label for="empKana">ふりがな（任意）</label>
-				<input type="text"
-						id="empKana"
-						name="empKana">
-			</div>
+
+
 
 			<div>
 				<label for="jobType">職種</label>
@@ -43,42 +34,19 @@
 					<option value="受付/医療事務">受付/医療事務</option>
 				</select>
 			</div>
-			
-			<div>
-				<label for="department">所属（任意）</label>
-				<input type="text"
-						id="department"
-						name="department">
-			</div>
-
-				<!-- 追加項目の受け取りと保存はController連携時に調整します。 -->
-			<div>
-				<label for="loginId">ログインID（必須）</label>
-				<input type="text"
-						id="loginId"
-						name="loginId"
-						autocomplete="username"
-						required>
-            </div>
 
 			<div>
 				<label for="password"> パスワード</label>
-				<input
-					type="password"
-					id="password"
-					name="password"
-					autocomplete="new-password"
-					required>
+				<input type="password" id="password" name="password" autocomplete="new-password" required>
 			</div>
-			
+
 			<div>
-				<a href="empList.html"
-					th:href="@{/admin/empList}">戻る</a>
-					
-				<!-- 表示確認用リンクです。入力内容の受け渡しと入力チェックは後から連携します。 -->
-					<button type="submit">確認</button>
+				<a href="empList.html" th:href="@{/admin/empList}">戻る</a>
+
+				<button type="submit">確認</button>
 			</div>
 		</form>
 	</main>
 </body>
+
 </html>
