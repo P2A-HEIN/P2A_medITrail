@@ -10,22 +10,27 @@
 <body>
 	<header>
 		<p>電子カルテ支援システム medITrail</p>
-		<form action="/medITrail/logout" th:action="@{/logout}" method="post">
-			<button type="submit">ログアウト</button>
-		</form>
 	</header>
 
 	<main>
-		<!-- 送信完了時の表示見本です。入力内容の送信と保存はまだ行いません。 -->
-		<h1>送信しました</h1>
+		<h1>問診票の送信が完了しました</h1>
 
-		<p>問診票の内容はスタッフが確認します。診察までしばらくお待ちください。</p>
+		<p>ご回答ありがとうございました。</p>
 
-		<h2>AI要約結果</h2>
-
-		<p th:text="${summary}" style="white-space: pre-wrap;"></p>
 		<p>
-			<a href="questionnaireInput.html">問診票入力画面へ戻る</a>
+			この画面を表示したまま、
+			受付または看護師に端末をお渡しください。
+		</p>
+
+		<p>
+			入力内容を修正する必要がある場合は、
+			スタッフにお声がけください。
+		</p>
+
+		<p>
+			<a th:href="@{/patient/patientSelection}">
+				問診票入力画面へ戻る
+			</a>
 		</p>
 	</main>
 </body>

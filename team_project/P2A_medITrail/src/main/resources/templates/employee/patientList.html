@@ -85,7 +85,7 @@
 						<td th:text="${#dates.format(patient.birth, 'yyyy-MM-dd')}">2000-01-01</td>
 						<td th:text="${patient.gender == 1 ? '男性' : (patient.gender == 2 ? '女性' : '未設定')}">未設定</td>
 						<td>
-							<a href="patientDetail.html">
+							<a th:href="@{/employee/patientDetail(patId=${patient.patId})}">
 								詳細を開く
 							</a>
 						</td>
