@@ -3,6 +3,7 @@ package jp.co.medITrail.controller.filter;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.util.ServletRequestPathUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,11 +20,26 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession(false);
 
-		if (session != null && session.getAttribute("hosId") != null) {
+		if (session == null || session.getAttribute("hosId") == null) {
+			response.sendRedirect(request.getContextPath() + "/");
+			return false;
+		}
+
+		String role = (String) session.getAttribute("role");
+
+		String path = ServletRequestPathUtils.getCachedPathValue(request);
+
+		if (path.startsWith("/admin/") && "admin".equals(role)) {
 			return true;
 		}
 
-		response.sendRedirect(request.getContextPath() + "/");
+		if (path.startsWith("/employee/") && "employee".equals(role)) {
+			return true;
+		}
+
+		response.sendError(HttpServletResponse.SC_FORBIDDEN);
 		return false;
+
+
 	}
 }
