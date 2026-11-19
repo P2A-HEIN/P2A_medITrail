@@ -35,7 +35,7 @@ public class LoginController {
 			return "redirect:/admin/empList";
 		}
 
-		Employee employee = employeeRepository.findByHosIdAndEmpIdAndPassword(hosId, userId, password);
+		Employee employee = employeeRepository.findByHosIdAndEmpIdAndPasswordAndDeleteFlag(hosId, userId, password, 0);
 
 		if (employee != null) {
 			session.setAttribute("hosId", hosId);

@@ -11,7 +11,7 @@
 	<header>
 		<p>電子カルテ支援システム medITrail</p>
 		<nav aria-label="共通メニュー">
-			<a href="empList.html">勤務者管理</a>
+			<a th:href="@{/admin/empList}">勤務者管理</a>
 			<a href="../employee/operationGuide.html">操作ガイド</a>
 		</nav>
 		<form action="/medITrail/logout" th:action="@{/logout}" method="post">
@@ -39,7 +39,7 @@
 
 			<p>
 				<button type="submit">この内容で保存する</button>
-				<a href="empEdit.html">内容を修正する</a>
+				<a th:href="@{/admin/empEdit(empId=${empId})}">戻る</a>
 			</p>
 		</form>
 	</main>

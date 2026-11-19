@@ -9,7 +9,8 @@ import jp.co.medITrail.entity.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-	Employee findByHosIdAndEmpIdAndPassword(Integer hosId, Integer empId, String password);
+	Employee findByHosIdAndEmpIdAndPasswordAndDeleteFlag(
+			Integer hosId, Integer empId, String password, Integer deleteFlag);
 
 	@Query(value = "SELECT EMPLOYEE_SEQ.NEXTVAL FROM DUAL", nativeQuery = true)
 	Integer getNextEmployee();
