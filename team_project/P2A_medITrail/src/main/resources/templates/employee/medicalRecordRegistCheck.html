@@ -1,46 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>カルテ登録確認</title>
+	<meta charset="UTF-8">
+	<title>カルテ登録確認</title>
 </head>
+
 <body>
 
-<h1>カルテ登録内容確認</h1>
+	<h1>カルテ登録内容確認</h1>
 
-<p>以下の内容で登録します。</p>
+	<p>以下の内容で登録します。</p>
 
-<p>患者ID：
-    <span th:text="${medicalRecord.patientId}"></span>
-</p>
+	<p>患者ID：
+		<span th:text="${medicalRecordCreationForm.patId}"></span>
+	</p>
 
-<p>患者名：
-    <span th:text="${medicalRecord.patientName}"></span>
-</p>
+	<p>問診票ID：
+		<span th:text="${medicalRecordCreationForm.questionnaireId}"></span>
+	</p>
 
-<p>担当勤務者：
-    <span th:text="${medicalRecord.staffName}"></span>
-</p>
+	<p>患者名：
+		<span th:text="${patient.patName}"></span>
+	</p>
 
-<p>カルテ内容：
-    <span th:text="${medicalRecord.recordContent}"></span>
-</p>
+	<p>担当勤務者：
+		<span th:text="${employee.empName}"></span>
+	</p>
 
-<form th:action="@{/medicalrecord/regist}"
-      th:object="${medicalRecord}" method="post">
+	<p>診断内容：
+		<span th:text="${medicalRecordCreationForm.diagnosisDetails}"></span>
+	</p>
 
-    <input type="hidden" th:field="*{patientId}">
-    <input type="hidden" th:field="*{patientName}">
-    <input type="hidden" th:field="*{staffName}">
-    <input type="hidden" th:field="*{recordContent}">
+	<p>処置内容：
+		<span th:text="${medicalRecordCreationForm.treatmentDetails}"></span>
+	</p>
 
-    <button type="submit">登録する</button>
+	<p>処方内容：
+		<span th:text="${medicalRecordCreationForm.prescriptionDetails}"></span>
+	</p>
 
-    <a th:href="@{/medicalrecord/regist}">
-        戻って修正する
-    </a>
+	<p>備考：
+		<span th:text="${medicalRecordCreationForm.remarks}"></span>
+	</p>
 
-</form>
+	<form th:action="@{/employee/medicalRecordRegistCompletion}" th:object="${medicalRecordCreationForm}" method="post">
+
+		<input type="hidden" th:field="*{patId}">
+		<input type="hidden" th:field="*{questionnaireId}">
+		<input type="hidden" th:field="*{diagnosisDetails}">
+		<input type="hidden" th:field="*{treatmentDetails}">
+		<input type="hidden" th:field="*{prescriptionDetails}">
+		<input type="hidden" th:field="*{remarks}">
+		<button type="submit">登録する</button>
+
+		<button type="submit" th:formaction="@{/employee/medicalRecordRegistBack}">戻る</button>
+
+	</form>
 
 </body>
+
 </html>

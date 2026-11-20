@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
+import jp.co.medITrail.entity.Employee;
 import jp.co.medITrail.entity.FixedText;
 import jp.co.medITrail.entity.MedicalRecord;
+import jp.co.medITrail.entity.Patient;
+import jp.co.medITrail.entity.Questionnaire;
 import jp.co.medITrail.form.MedicalRecordCreationForm;
 import jp.co.medITrail.repository.EmployeeRepository;
 import jp.co.medITrail.repository.FixedTextRepository;
@@ -55,11 +58,94 @@ public class MedicalRecordCreationController {
 	}
 
 	@RequestMapping(path = "/employee/medicalRecordRegistCheck", method = RequestMethod.POST)
-	public String medicalRecordCreationCheck(MedicalRecordCreationForm form, Model model) {
+	public String medicalRecordCreationCheck(MedicalRecordCreationForm form, HttpSession session, Model model) {
+
+		Integer empId = (Integer) session.getAttribute("empId");
+		Integer hosId = (Integer) session.getAttribute("hosId");
+
+		if (empId == null || hosId == null || form.getPatId() == null || form.getQuestionnaireId() == null) {
+
+			model.addAttribute("errorMessage", "ログイン情報、患者情報、または問診票情報を取得できませんでした。");
+
+			return "employee/medicalRecordRegist";
+		}
+
+		Employee employee = employeeRepository.findByEmpIdAndHosIdAndDeleteFlag(empId, hosId, 0);
+
+		if (employee == null) {
+			model.addAttribute("errorMessage", "ログイン中の職員情報が見つからないか、利用できない状態です。");
+
+			return "employee/medicalRecordRegist";
+		}
+
+		Patient patient = patientRepository.findByPatIdAndHosIdAndDeleteFlag(form.getPatId(), hosId, 0);
+
+		if (patient == null) {
+			model.addAttribute("errorMessage", "指定された患者が見つからないか、登録された病院が異なります。");
+
+			return "employee/medicalRecordRegist";
+		}
+
+		Questionnaire questionnaire = questionnaireRepository.findByQuestionnaireIdAndPatId(form.getQuestionnaireId(),
+				form.getPatId());
+
+		if (questionnaire == null) {
+			model.addAttribute("errorMessage", "指定された患者の問診票が見つかりませんでした。");
+
+			return "employee/medicalRecordRegist";
+		}
 
 		model.addAttribute("medicalRecordCreationForm", form);
+		model.addAttribute("patient", patient);
+		model.addAttribute("employee", employee);
 
 		return "employee/medicalRecordRegistCheck";
+	}
+
+	@RequestMapping(path = "/employee/medicalRecordRegistBack", method = RequestMethod.POST)
+	public String medicalRecordCreationBack(MedicalRecordCreationForm form, HttpSession session, Model model) {
+
+	    Integer empId = (Integer) session.getAttribute("empId");
+	    Integer hosId = (Integer) session.getAttribute("hosId");
+
+	    if (empId == null || hosId == null || form.getPatId() == null || form.getQuestionnaireId() == null) {
+
+	        model.addAttribute("errorMessage", "ログイン情報、患者情報、または問診票情報を取得できませんでした。");
+
+	        return "employee/medicalRecordRegist";
+	    }
+	    
+	    Employee employee = employeeRepository.findByEmpIdAndHosIdAndDeleteFlag(empId, hosId, 0);
+	    
+	    if (employee == null) {
+	        model.addAttribute("errorMessage", "ログイン中の職員情報が見つからないか、利用できない状態です。");
+
+	        return "employee/medicalRecordRegist";
+	    }
+	    
+	    Patient patient = patientRepository.findByPatIdAndHosIdAndDeleteFlag(form.getPatId(), hosId, 0);
+	    
+	    if (patient == null) {
+			model.addAttribute("errorMessage", "指定された患者が見つからないか、登録された病院が異なります。");
+			return "employee/medicalRecordRegist";
+		}
+
+		Questionnaire questionnaire = questionnaireRepository.findByQuestionnaireIdAndPatId(form.getQuestionnaireId(),
+				form.getPatId());
+
+		if (questionnaire == null) {
+			model.addAttribute("errorMessage", "指定された患者の問診票が見つかりませんでした。");
+
+			return "employee/medicalRecordRegist";
+		}
+	    
+	    model.addAttribute("medicalRecordCreationForm", form);
+
+	    List<FixedText> fixedTextList = fixedTextRepository.findByDeleteFlagOrderByCategoryAscTitleAsc(0);
+
+	    model.addAttribute("fixedTextList", fixedTextList);
+
+	    return "employee/medicalRecordRegist";
 	}
 
 	@RequestMapping(path = "/employee/medicalRecordRegistCompletion", method = RequestMethod.POST)
@@ -75,7 +161,7 @@ public class MedicalRecordCreationController {
 			return "employee/medicalRecordRegist";
 		}
 
-		var employee = employeeRepository.findByEmpIdAndHosIdAndDeleteFlag(empId, hosId, 0);
+		Employee employee = employeeRepository.findByEmpIdAndHosIdAndDeleteFlag(empId, hosId, 0);
 
 		if (employee == null) {
 			model.addAttribute("errorMessage", "ログイン中の職員情報が見つからないか、利用できない状態です。");
@@ -83,14 +169,14 @@ public class MedicalRecordCreationController {
 			return "employee/medicalRecordRegist";
 		}
 
-		var patient = patientRepository.findByPatIdAndHosIdAndDeleteFlag(form.getPatId(), hosId, 0);
+		Patient patient = patientRepository.findByPatIdAndHosIdAndDeleteFlag(form.getPatId(), hosId, 0);
 
 		if (patient == null) {
 			model.addAttribute("errorMessage", "指定された患者が見つからないか、登録された病院が異なります。");
 			return "employee/medicalRecordRegist";
 		}
 
-		var questionnaire = questionnaireRepository.findByQuestionnaireIdAndPatId(form.getQuestionnaireId(),
+		Questionnaire questionnaire = questionnaireRepository.findByQuestionnaireIdAndPatId(form.getQuestionnaireId(),
 				form.getPatId());
 
 		if (questionnaire == null) {
@@ -119,6 +205,8 @@ public class MedicalRecordCreationController {
 		medicalRecord.setUpdatedDate(now);
 
 		medicalRecordRepository.save(medicalRecord);
+
+		model.addAttribute("patId", form.getPatId());
 
 		return "employee/medicalRecordRegistCompletion";
 	}
