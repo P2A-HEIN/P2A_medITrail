@@ -17,6 +17,18 @@
 		<input type="hidden" th:field="*{questionnaireId}">
 
 		<label>診断内容</label>
+		<select id="categorySelect">
+			<option value="">カテゴリーを選択してください</option>
+			<option th:each="category : ${categoryList}" th:value="${category}" th:text="${category}">
+			</option>
+		</select>
+		<select id="fixedTextSelect">
+			<option value="">定型文を選択してください</option>
+			<option th:each="fixedText : ${fixedTextList}" th:value="${fixedText.fixedText}"
+				th:text="${fixedText.title}" th:data-category="${fixedText.category}">
+			</option>
+		</select>
+		<button type="button" id="addFixedTextButton">追加</button>
 		<textarea th:field="*{diagnosisDetails}"></textarea>
 		<br><br>
 
@@ -34,6 +46,38 @@
 
 		<button type="submit">確認する</button>
 	</form>
+	<script>
+		const categorySelect = document.getElementById("categorySelect");
+		const fixedTextSelect = document.getElementById("fixedTextSelect");
+		const addFixedTextButton = document.getElementById("addFixedTextButton");
+		const diagnosisDetails = document.getElementById("diagnosisDetails");
+		const allOptions = Array.from(fixedTextSelect.options);
+		categorySelect.addEventListener("change", function () {
+			const selectedCategory = categorySelect.value;
+
+			fixedTextSelect.innerHTML = "";
+
+			for (const option of allOptions) {
+				if (option.value === "" || option.dataset.category === selectedCategory) {
+					fixedTextSelect.appendChild(option.cloneNode(true));
+				}
+			}
+		});
+		categorySelect.dispatchEvent(new Event("change"));
+		addFixedTextButton.addEventListener("click", function () {
+			const selectedText = fixedTextSelect.value;
+
+			if (selectedText === "") {
+				return;
+			}
+
+			if (diagnosisDetails.value === "") {
+				diagnosisDetails.value = selectedText;
+			} else {
+				diagnosisDetails.value += "\n" + selectedText;
+			}
+		});
+	</script>
 
 
 </body>

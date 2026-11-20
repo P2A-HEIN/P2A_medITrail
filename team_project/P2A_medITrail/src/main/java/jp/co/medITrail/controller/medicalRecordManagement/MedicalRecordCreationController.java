@@ -1,7 +1,9 @@
 
 package jp.co.medITrail.controller.medicalRecordManagement;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,15 @@ public class MedicalRecordCreationController {
 		List<FixedText> fixedTextList = fixedTextRepository.findByDeleteFlagOrderByCategoryAscTitleAsc(0);
 
 		model.addAttribute("fixedTextList", fixedTextList);
+		LinkedHashSet<String> categorySet = new LinkedHashSet<>();
+
+		for (FixedText fixedText : fixedTextList) {
+			categorySet.add(fixedText.getCategory());
+		}
+
+		List<String> categoryList = new ArrayList<>(categorySet);
+
+		model.addAttribute("categoryList", categoryList);
 
 		return "employee/medicalRecordRegist";
 	}
@@ -105,27 +116,27 @@ public class MedicalRecordCreationController {
 	@RequestMapping(path = "/employee/medicalRecordRegistBack", method = RequestMethod.POST)
 	public String medicalRecordCreationBack(MedicalRecordCreationForm form, HttpSession session, Model model) {
 
-	    Integer empId = (Integer) session.getAttribute("empId");
-	    Integer hosId = (Integer) session.getAttribute("hosId");
+		Integer empId = (Integer) session.getAttribute("empId");
+		Integer hosId = (Integer) session.getAttribute("hosId");
 
-	    if (empId == null || hosId == null || form.getPatId() == null || form.getQuestionnaireId() == null) {
+		if (empId == null || hosId == null || form.getPatId() == null || form.getQuestionnaireId() == null) {
 
-	        model.addAttribute("errorMessage", "ログイン情報、患者情報、または問診票情報を取得できませんでした。");
+			model.addAttribute("errorMessage", "ログイン情報、患者情報、または問診票情報を取得できませんでした。");
 
-	        return "employee/medicalRecordRegist";
-	    }
-	    
-	    Employee employee = employeeRepository.findByEmpIdAndHosIdAndDeleteFlag(empId, hosId, 0);
-	    
-	    if (employee == null) {
-	        model.addAttribute("errorMessage", "ログイン中の職員情報が見つからないか、利用できない状態です。");
+			return "employee/medicalRecordRegist";
+		}
 
-	        return "employee/medicalRecordRegist";
-	    }
-	    
-	    Patient patient = patientRepository.findByPatIdAndHosIdAndDeleteFlag(form.getPatId(), hosId, 0);
-	    
-	    if (patient == null) {
+		Employee employee = employeeRepository.findByEmpIdAndHosIdAndDeleteFlag(empId, hosId, 0);
+
+		if (employee == null) {
+			model.addAttribute("errorMessage", "ログイン中の職員情報が見つからないか、利用できない状態です。");
+
+			return "employee/medicalRecordRegist";
+		}
+
+		Patient patient = patientRepository.findByPatIdAndHosIdAndDeleteFlag(form.getPatId(), hosId, 0);
+
+		if (patient == null) {
 			model.addAttribute("errorMessage", "指定された患者が見つからないか、登録された病院が異なります。");
 			return "employee/medicalRecordRegist";
 		}
@@ -138,14 +149,24 @@ public class MedicalRecordCreationController {
 
 			return "employee/medicalRecordRegist";
 		}
-	    
-	    model.addAttribute("medicalRecordCreationForm", form);
 
-	    List<FixedText> fixedTextList = fixedTextRepository.findByDeleteFlagOrderByCategoryAscTitleAsc(0);
+		model.addAttribute("medicalRecordCreationForm", form);
 
-	    model.addAttribute("fixedTextList", fixedTextList);
+		List<FixedText> fixedTextList = fixedTextRepository.findByDeleteFlagOrderByCategoryAscTitleAsc(0);
 
-	    return "employee/medicalRecordRegist";
+		model.addAttribute("fixedTextList", fixedTextList);
+
+		LinkedHashSet<String> categorySet = new LinkedHashSet<>();
+
+		for (FixedText fixedText : fixedTextList) {
+			categorySet.add(fixedText.getCategory());
+		}
+
+		List<String> categoryList = new ArrayList<>(categorySet);
+
+		model.addAttribute("categoryList", categoryList);
+		
+		return "employee/medicalRecordRegist";
 	}
 
 	@RequestMapping(path = "/employee/medicalRecordRegistCompletion", method = RequestMethod.POST)
