@@ -19,4 +19,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 	List<Employee> findByHosIdAndDeleteFlag(Integer hosId, Integer deleteFlag);
 
+	List<Employee> findByHosId(Integer hosId);
+
 }

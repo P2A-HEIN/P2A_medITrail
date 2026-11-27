@@ -79,29 +79,57 @@
 				<caption>患者のカルテ記録</caption>
 				<thead>
 					<tr>
-						<th scope="col">記録日</th>
-						<th scope="col">担当勤務者</th>
-						<th scope="col">内容</th>
+						<th scope="col">作成日時</th>
+						<th scope="col">作成者</th>
+						<th scope="col">最終更新日時</th>
+						<th scope="col">最終更新者</th>
+						<th scope="col">カルテ内容</th>
 						<th scope="col">操作</th>
 					</tr>
 				</thead>
 
 				<tbody>
 					<tr th:each="record : ${medicalRecordList}">
-						<td th:text="${#dates.format(record.createdDate, 'yyyy-MM-dd')}">
-							2026-10-30
+						<td th:text="${#dates.format(record.createdDate, 'yyyy-MM-dd HH:mm')}">
+							2026-10-30 14:30
 						</td>
-						<td th:text="${record.createdEmpId}">
-							1
+						<td
+							th:text="${employeeNameMap[record.createdEmpId] != null ? employeeNameMap[record.createdEmpId] : '不明'}">
+							サンプル勤務者
 						</td>
-						<td th:text="${record.diagnosisDetails}">
-							診断内容
+						<td th:text="${#dates.format(record.updatedDate, 'yyyy-MM-dd HH:mm')}">
+							2026-10-30 15:00
+						</td>
+						<td
+							th:text="${employeeNameMap[record.updatedEmpId] != null ? employeeNameMap[record.updatedEmpId] : '不明'}">
+							サンプル勤務者
+						</td>
+						<td>
+							<strong>診断内容</strong>
+							<p th:text="${record.diagnosisDetails}" style="white-space: pre-wrap;">
+								サンプル診断内容
+							</p>
+
+							<strong>処置内容</strong>
+							<p th:text="${record.treatmentDetails}" style="white-space: pre-wrap;">
+								サンプル処置内容
+							</p>
+
+							<strong>処方内容</strong>
+							<p th:text="${record.prescriptionDetails}" style="white-space: pre-wrap;">
+								サンプル処方内容
+							</p>
+
+							<strong>備考</strong>
+							<p th:text="${record.remarks}" style="white-space: pre-wrap;">
+								サンプル備考
+							</p>
 						</td>
 						<td>―</td>
 					</tr>
 
 					<tr th:if="${#lists.isEmpty(medicalRecordList)}">
-						<td colspan="4">カルテはまだ登録されていません。</td>
+						<td colspan="6">カルテはまだ登録されていません。</td>
 					</tr>
 				</tbody>
 

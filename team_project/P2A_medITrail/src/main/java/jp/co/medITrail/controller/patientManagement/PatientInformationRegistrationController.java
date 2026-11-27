@@ -1,6 +1,8 @@
 package jp.co.medITrail.controller.patientManagement;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
+import jp.co.medITrail.entity.Employee;
 import jp.co.medITrail.entity.MedicalRecord;
 import jp.co.medITrail.entity.Patient;
 import jp.co.medITrail.entity.Questionnaire;
 import jp.co.medITrail.form.PatientInformationRegistrationForm;
+import jp.co.medITrail.repository.EmployeeRepository;
 import jp.co.medITrail.repository.MedicalRecordRepository;
 import jp.co.medITrail.repository.PatientRepository;
 import jp.co.medITrail.repository.QuestionnaireRepository;
@@ -28,6 +32,9 @@ public class PatientInformationRegistrationController {
 
 	@Autowired
 	private MedicalRecordRepository medicalRecordRepository;
+
+	@Autowired
+	private EmployeeRepository employeeRepository;
 
 	@RequestMapping(path = "/employee/patientList", method = RequestMethod.GET)
 	public String patientList(HttpSession session, Model model) {
@@ -111,18 +118,19 @@ public class PatientInformationRegistrationController {
 		}
 
 		model.addAttribute("patient", patient);
-
-		// 選択した患者の問診票を新しい順に取得
 		List<Questionnaire> questionnaireList = questionnaireRepository.findByPatIdOrderByInputDateDesc(patId);
 
-		// 問診票の情報をHTMLに渡す
 		model.addAttribute("questionnaireList", questionnaireList);
-
-		// 選択した患者のカルテを新しい順に取得
 		List<MedicalRecord> medicalRecordList = medicalRecordRepository.findByPatIdOrderByCreatedDateDesc(patId);
 
-		// カルテ一覧をHTMLに渡す
 		model.addAttribute("medicalRecordList", medicalRecordList);
+		List<Employee> employeeList = employeeRepository.findByHosId(hosId);
+
+		Map<Integer, String> employeeNameMap = new HashMap<>();
+		for (Employee employee : employeeList) {
+			employeeNameMap.put(employee.getEmpId(), employee.getEmpName());
+		}
+		model.addAttribute("employeeNameMap", employeeNameMap);
 
 		return "employee/patientDetail";
 
